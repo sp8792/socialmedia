@@ -1,15 +1,42 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.*;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class  Main {
+
+    static HashMap<String,Integer> users = new HashMap<>();
+    static HashMap<String,Integer> attempts = new HashMap<>();
+
+    public static void main(String[] args){
+
+        users.put("manish",1);
+        users.put("admin",2);
+        users.put("alice",3);
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+
+        attempts.put(username, attempts.getOrDefault(username,0)+1);
+
+        if(users.containsKey(username)){
+            System.out.println("Username already taken");
+            suggest(username);
         }
+        else{
+            System.out.println("Username available");
+        }
+
+        sc.close();
+    }
+
+    static void suggest(String username){
+
+        System.out.println("Suggestions:");
+
+        for(int i=1;i<=3;i++){
+            System.out.println(username+i);
+        }
+
+        System.out.println(username.replace("_","."));
     }
 }
