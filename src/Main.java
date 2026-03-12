@@ -1,37 +1,31 @@
 import java.util.*;
 
-public class Main
-{
+public class Main {
+
+    static HashMap<String,Integer> pageViews = new HashMap<>();
 
     public static void main(String[] args){
 
-        String doc1="machine learning models are powerful";
-        String doc2="machine learning models are widely used";
+        processEvent("/news");
+        processEvent("/sports");
+        processEvent("/news");
+        processEvent("/tech");
 
-        Set<String> ngrams1 = generateNgrams(doc1,2);
-        Set<String> ngrams2 = generateNgrams(doc2,2);
-
-        ngrams1.retainAll(ngrams2);
-
-        System.out.println("Matching ngrams: "+ngrams1.size());
+        showDashboard();
     }
 
-    static Set<String> generateNgrams(String text,int n){
+    static void processEvent(String page){
 
-        String[] words = text.split(" ");
-        Set<String> set = new HashSet<>();
+        pageViews.put(page,pageViews.getOrDefault(page,0)+1);
+    }
 
-        for(int i=0;i<=words.length-n;i++){
+    static void showDashboard(){
 
-            String gram = "";
+        System.out.println("Page Views:");
 
-            for(int j=0;j<n;j++){
-                gram += words[i+j]+" ";
-            }
+        for(String page:pageViews.keySet()){
 
-            set.add(gram.trim());
+            System.out.println(page+" → "+pageViews.get(page));
         }
-
-        return set;
     }
 }
