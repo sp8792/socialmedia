@@ -2,25 +2,38 @@ import java.util.*;
 
 public class Main {
 
-    static HashMap<String,Integer> queries = new HashMap<>();
+    static String[] parking = new String[10];
 
     public static void main(String[] args){
 
-        queries.put("java tutorial",100);
-        queries.put("javascript guide",90);
-        queries.put("java download",80);
+        park("ABC123");
+        park("XYZ999");
+        park("CAR456");
 
-        search("jav");
+        showParking();
     }
 
-    static void search(String prefix){
+    static void park(String plate){
 
-        for(String query:queries.keySet()){
+        int index = Math.abs(plate.hashCode()%parking.length);
 
-            if(query.startsWith(prefix)){
+        while(parking[index]!=null){
 
-                System.out.println(query+" ("+queries.get(query)+")");
-            }
+            index = (index+1)%parking.length;
+        }
+
+        parking[index] = plate;
+
+        System.out.println("Parked "+plate+" at spot "+index);
+    }
+
+    static void showParking(){
+
+        System.out.println("Parking Status:");
+
+        for(int i=0;i<parking.length;i++){
+
+            System.out.println(i+" → "+parking[i]);
         }
     }
 }
